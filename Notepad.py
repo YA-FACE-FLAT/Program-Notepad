@@ -1,5 +1,16 @@
-import tkinter as tk
-from tkinter import filedialog
+import os
+import sys
+
+# Try to import tkinter, install if missing
+try:
+    import tkinter as tk
+    from tkinter import filedialog
+except ImportError:
+    import subprocess
+    print("Tkinter not found, installing it now...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "tk"])
+    import tkinter as tk
+    from tkinter import filedialog
 
 def new_file():
     text.delete(1.0, tk.END)
@@ -18,6 +29,7 @@ def save_file():
         with open(path, "w") as file:
             file.write(text.get(1.0, tk.END))
 
+# Launch GUI
 root = tk.Tk()
 root.title("Simple Notepad")
 
